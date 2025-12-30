@@ -1,5 +1,7 @@
 # Compiled Lua sources
 luac.out
+.DS_Store
+lazy-lock.json
 
 # luarocks build files
 *.src.rock
