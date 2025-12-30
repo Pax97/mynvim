@@ -9,6 +9,10 @@ set modelines=0             " Tính năng bảo mật vô hiệu các script đ�
 set noswapfile              " Tắt file file swap
 set statusline=%f\ %y\ %m\ %r\ %h\ %w\ [%{&ff}]%=\ %l/%L\ (%p%%) " Tùy chỉnh thanh trạng thái để hiển thị định dạng file (OS Format)
 set splitright
+set scrolloff=10
+
+autocmd BufLeave,FocusLost * silent! wall
+
 
 " --- CẤU HÌNH GIAO DIỆN ---
 syntax on                   " Bật highlight cú pháp
