@@ -1,0 +1,38 @@
+name: Sync Settings to init.vimrc
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'lua/config/settings.vim'
+
+jobs:
+  sync-settings:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Copy settings.vim to init.vimrc
+        run: |
+          cp lua/config/settings.vim init.vimrc
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet init.vimrc || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add init.vimrc
+          git commit -m "chore: sync settings.vim to init.vimrc [skip ci]"
+          git push
