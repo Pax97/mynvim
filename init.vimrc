@@ -1,3 +1,4 @@
+" Tes Git Workflow
 " --- CẤU HÌNH HỆ THỐNG & HIỆU NĂNG ---
 set nocompatible            " Tắt tương thích với vi cổ điển
 set encoding=utf-8          " Hỗ trợ ký tự tiếng Việt/UTF-8
