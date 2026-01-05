@@ -4,4 +4,5 @@ local function map(mode, lhs, rhs)
 end
 
 -- NeoTree
-map("n", "<leader>e", "<CMD>Neotree float reveal toggle<CR>")
+map("n", "<leader>r", "<CMD>Neotree toggle<CR>")
+map("n", "<leader>e", "<CMD>Neotree focus<CR>")

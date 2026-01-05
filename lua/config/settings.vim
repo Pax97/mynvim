@@ -45,11 +45,32 @@ set smartcase               " Tự phân biệt hoa thường nếu gõ chữ ho
 let mapleader = "\\"
 let maplocalleader = "\<Space>"
 
-" Close buffer
-nnoremap <Leader>bd :bdelete<CR>
+" --------------- Close buffer
+function! SmartClose()
+    " 1. Lấy danh sách các buffer đang hiển thị (buflisted)
+    let l:listed_buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)')
+    " 2. Lấy ID của buffer hiện tại
+    let l:current_buf = bufnr('%')
+    " 3. Kiểm tra số lượng buffer
+    if len(l:listed_buffers) <= 1
+        " Nếu chỉ còn 1 buffer duy nhất, thực hiện lệnh thoát có xác nhận
+        confirm quit
+    else
+        " Nếu còn nhiều hơn 1 buffer:
+        " Nhảy sang buffer trước đó để giữ cửa sổ không bị đóng
+        bprevious
+        " Xóa buffer cũ (dùng execute để truyền ID vào lệnh)
+        execute 'confirm bdelete ' . l:current_buf
+    endif
+endfunction
+
+" Thiết lập phím tắt (Mapping)
+nnoremap <silent> <leader>bd :call SmartClose()<CR>
+
+" -------------- SmartClose End
 
 " Nhấn ESC 2 lần để vừa xóa highlight tìm kiếm, vừa làm mới (redraw) màn hình
-nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
+nnoremap <silent> <Esc>n :nohlsearch<CR>
 
 " --- Chế độ Visual: Bôi đen rồi nhấn phím để bao quanh ---
 " Ngoặc tròn ()
